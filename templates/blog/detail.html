@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}<h2 style="font-size: 100px;text-align:left;padding-top:0px;margin-top: 25px;margin-left: 10%;margin-right: 10%;" class="tm-pt-30 tm-color-primary tm-post-title"><u>{{ post }}</u></h2>
+
+{% endblock %}
+
+{% block content %}
+<style type="text/css">
+    .home {
+    width: 100%;
+    height: 80vh;
+    background-image: url(https://i.etsystatic.com/12707189/r/il/698aa8/1488026826/il_570xN.1488026826_lrbn.jpg);
+    background-position: center top;
+    background-size:cover;
+}
+</style>
+{% load static %}
+	<link rel="stylesheet" href="{% static 'home/fontawesome/css/all.min.css' %}"> 
+	{% load static %}
+	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+	{% load static %}
+    <link href="{% static 'home/css/bootstrap.min.css' %}" rel="stylesheet">
+    {% load static %}
+    <link href="{% static 'home/css/templatemo-xtra-blog.css' %}" rel="stylesheet">
+    <p style="font-size: 25px;padding-top:0px;margin-top: 25px;margin-left: 10%;margin-right: 10%;font-family: Georgia, Times New Roman;color: grey;text-align:left" class="tm-mb-40">By {{ post.author }} </p>
+                           
+	<p style="font-size: 30px;padding-top:0px;margin-top: 25px;margin-left: 10%;margin-right: 10%;font-family: Georgia, Times New Roman;color: black;text-align:left">
+	{{ post.body }}
+	</p>
+	 <span style="text-align: left;margin-left: 10%" class="d-block text-left tm-color-primary">{{ post.publish }} </span>
+	 <div class="d-flex justify-content-between">
+        <span style="text-align: left;margin-left: 10%" >{{ post.comments.count }} comments</span>
+    </div>
+	{% if post.image %}
+      <img class="img-fluid rounded" src="{{ post.image }}" alt="">
+      {% endif %}
+	<hr>
+	
+
+	<div style="padding:50px" >
+                <h2 class="tm-color-primary tm-post-title">Comments</h2>
+                <hr class="tm-hr-primary tm-mb-45">
+                {% if not post.comments.all %}
+					No comments yet.. <a href="#"> Add One </a>
+
+					{% else %}
+						{% for comment in post.comments.all %}
+						<div class="tm-comment tm-mb-45">
+                    <figure class="tm-comment-figure">
+                        <img style="width:100px;height:100px" src="https://png.pngtree.com/png-vector/20191122/ourmid/pngtree-beautiful-admin-roles-glyph-vector-icon-png-image_2002847.jpg" class="mb-2 rounded-circle img-thumbnail">
+                        <figcaption class="tm-color-primary text-center">{{ comment.name }}</figcaption>
+                    </figure>
+                    <div>
+                        <p>
+                            <br>{{ comment.body }}
+                        </p>
+                        <div class="d-flex justify-content-between">
+                            <span class="tm-color-primary">{{ comment.date_added }}</span>
+                        </div>                                                 
+                    </div>                                
+                </div>
+						
+						   {% endfor %}
+					{% endif %}
+                
+                <form action="." method="post" class="mb-5 tm-comment-form">
+                	<h2 class="tm-color-primary tm-post-title mb-4">Your comment</h2>
+                	<div class="mb-4">
+	                	{{ comment_form.as_p }}
+						{% csrf_token %}
+                    </div>
+                    <div class="text-right">
+                        <button  type="submit" class="tm-btn tm-btn-primary tm-btn-small">Submit</button>                        
+                    </div>                                
+                </form>                          
+            </div>
+        </div>
+    </div>
+{% endblock %}

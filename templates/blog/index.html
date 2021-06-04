@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}<h2 style="font-size: 100px;text-align:center;padding-top:0px;margin-top: 25px;margin-left: 10%;margin-right: 10%;" class="tm-pt-30 tm-color-primary tm-post-title">All Blogs</h2>{% endblock %}
+
+{% block content %}
+	<style>
+	
+	</style>
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'home/fontawesome/css/all.min.css' %}"> 
+	{% load static %}
+	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+	{% load static %}
+    <link href="{% static 'home/css/bootstrap.min.css' %}" rel="stylesheet">
+    {% load static %}
+    <link href="{% static 'home/css/templatemo-xtra-blog.css' %}" rel="stylesheet">
+ 
+    
+
+  <div class="container-fluid">
+        <main style="margin:2px" class="tm-main">        
+            <div class="row tm-row">
+            	{% for post in posts %}
+                <article class="col-12 col-md-6 tm-post">
+                    <hr class="tm-hr-primary">
+                    <a href="{{ post.get_absolute_url }}" class="effect-lily tm-post-link tm-pt-60">
+                        <div class="tm-post-link-inner">
+                            <img style="height:310px"src="{{ post.image }}" alt="Image" class="img-fluid">                            
+                        </div>
+                        <span class="position-absolute tm-new-badge">New</span>
+                        <h2 class="tm-pt-30 tm-color-primary tm-post-title">{{ post.title }}</h2>
+                    </a>                    
+                    <p class="tm-pt-30">
+                        {{post.slug}}
+                    </p>
+                    <div class="d-flex justify-content-between tm-pt-45">
+                        <span class="tm-color-primary">{{post.publish}}</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        
+                        <span>{{post.author}}</span>
+                        <a href="{{ post.get_absolute_url }}">
+            READ MORE
+        </a>
+                    </div>
+                </article>
+                {% endfor %}
+                
+            </div>
+                           
+            </div>            
+            
+        </main>
+    </div>
+
+
+
+{% endblock %}
+
+
+
